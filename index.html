@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Organic Mechanism Hub 🧪</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Noto+Sans+Myanmar:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="script.js"></script>
+</head>
+<body>
+<header class="hero">
+  <div class="flask" aria-hidden="true">🧪</div>
+  <div>
+    <h1>Organic Mechanism Hub</h1>
+    <p>$S_N1$ · $S_N2$ · $E1$ · $E2$ — predict, watch, practise.</p>
+    <p class="my">ဓာတ်ပြုမှု ယန္တရားများကို အလွယ်တကူ လေ့လာကြမယ်</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab on" data-tab="predict" role="tab">🌳 Predictor</button>
+  <button class="tab" data-tab="visual" role="tab">🏹 Visualizer</button>
+  <button class="tab" data-tab="quiz" role="tab">🎯 Quiz Bot</button>
+  <button class="tab" data-tab="faq" role="tab">💡 FAQ</button>
+</nav>
+
+<main>
+  <section id="predict" class="panel on">
+    <h2>Which pathway wins?</h2>
+    <p class="hint">Pick the conditions, then ask the tree.</p>
+    <div class="group"><h3>Substrate (alkyl halide)</h3><div class="chips" id="c-sub"></div></div>
+    <div class="group"><h3>Nucleophile / base</h3><div class="chips" id="c-reag"></div></div>
+    <div class="group"><h3>Solvent</h3><div class="chips" id="c-solv"></div></div>
+    <div class="group"><h3>Temperature</h3><div class="chips" id="c-temp"></div></div>
+    <button class="btn" id="go">Predict ✨</button>
+    <div id="result" class="result" hidden></div>
+  </section>
+
+  <section id="visual" class="panel">
+    <h2>Mechanism visualizer</h2>
+    <p class="hint">Yellow dots are electrons hopping along the arrows. Watch the leaving group jump away!</p>
+    <div class="pills" id="mech-pills"></div>
+    <div class="stage"><svg id="svg" viewBox="0 0 640 220" role="img" aria-label="Mechanism step"></svg></div>
+    <div class="stepinfo"><h3 id="st-title"></h3><p id="st-desc"></p></div>
+    <div class="ctrl">
+      <button class="btn ghost" id="prev">← Back</button>
+      <button class="btn ghost" id="replay">↻ Replay</button>
+      <div class="dots" id="dots"></div>
+      <button class="btn ghost" id="next">Next →</button>
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <h2>Quiz bot</h2>
+    <div id="quiz-box"></div>
+  </section>
+
+  <section id="faq" class="panel">
+    <h2>Frequently asked questions</h2>
+    <p class="hint">The questions every organic chemistry class asks.</p>
+    <details open><summary>How do I decide between SN1, SN2, E1 and E2 quickly?</summary>
+      <p>Look at three things in order: (1) the carbon: methyl/1° favours SN2, 3° favours SN1/E1/E2, 2° can do anything; (2) the reagent: strong base means E2, good nucleophile with weak base means SN2 (or SN1 on 3°), weak nucleophile means SN1/E1; (3) the extras: aprotic solvent helps SN2, heat helps elimination.</p></details>
+    <details><summary>What is the difference between a nucleophile and a base?</summary>
+      <p>Both donate an electron pair. A nucleophile attacks carbon (speed = nucleophilicity); a base takes a hydrogen (strength = basicity). I⁻, CN⁻ and N₃⁻ are good nucleophiles but weak bases. HO⁻ and EtO⁻ are both strong. t-BuOK is a strong base but too bulky to be a good nucleophile.</p></details>
+    <details><summary>Why do 3° halides never do SN2?</summary>
+      <p>Three alkyl groups block the back side of the carbon, so the nucleophile cannot reach it.</p></details>
+    <details><summary>Why can't a 1° halide do SN1?</summary>
+      <p>A primary carbocation is far too unstable to form, so ionisation never starts.</p></details>
+    <details><summary>Why does a polar aprotic solvent speed up SN2?</summary>
+      <p>Protic solvents (water, alcohols) hydrogen-bond to the nucleophile and calm it down. Aprotic solvents (DMSO, DMF, acetone) leave it free and reactive.</p></details>
+    <details><summary>Why does heat favour elimination?</summary>
+      <p>Elimination makes more molecules than substitution, which adds disorder (entropy). The higher the temperature, the more that matters.</p></details>
+    <details><summary>Zaitsev or Hofmann?</summary>
+      <p>Normal bases give the more substituted, more stable alkene (Zaitsev). A bulky base like t-BuOK takes the easiest-to-reach hydrogen and gives the less substituted alkene (Hofmann).</p></details>
+    <details><summary>What is a good leaving group?</summary>
+      <p>A weak base that is happy on its own: I⁻ &gt; Br⁻ &gt; Cl⁻ ≫ F⁻. HO⁻ and NH₂⁻ are poor, so alcohols must first be protonated or turned into tosylates.</p></details>
+    <details><summary>What is a carbocation rearrangement?</summary>
+      <p>A neighbouring H (or CH₃) slides over with its bonding pair to turn a less stable cation into a more stable one, for example 2° → 3°. It only happens in SN1/E1, never in SN2/E2.</p></details>
+    <details><summary>What happens to stereochemistry?</summary>
+      <p>SN2 inverts the configuration (Walden inversion). SN1 gives a mix of both configurations (racemisation). E2 needs the H and the leaving group anti to each other.</p></details>
+    <details><summary>How does the rate depend on concentration?</summary>
+      <p>SN1 and E1: depends only on the halide. SN2 and E2: depends on both the halide and the nucleophile/base, so doubling both makes it 4 times faster.</p></details>
+    <details><summary>Cheat sheet</summary>
+      <div class="scroll"><table><tr><th>Mechanism</th><th>Steps</th><th>Best substrate</th><th>Reagent</th></tr>
+      <tr><td>SN1</td><td>2</td><td>3° (2°)</td><td>Weak Nu, protic</td></tr>
+      <tr><td>SN2</td><td>1</td><td>Methyl, 1° (2°)</td><td>Strong Nu, aprotic</td></tr>
+      <tr><td>E1</td><td>2</td><td>3° (2°)</td><td>Weak base, heat</td></tr>
+      <tr><td>E2</td><td>1</td><td>3°, 2°, (1°)</td><td>Strong base, heat</td></tr></table></div></details>
+  </section>
+</main>
+
+<footer>Made with 💗 for organic chemistry · KaTeX renders the math</footer>
+</body>
+</html>
